@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
-* Студент: [Мария Лавришина](https://up.htmlacademy.ru/javascript/22/user/1596451).
-* Наставник: `Неизвестно`.
+* Студент: [Мария Лавришина](https://up.htmlacademy.ru/javascript/22/user/1596451)
+* Наставник: [Антон Попов](https://htmlacademy.ru/profile/joker)
 
 ---
 
