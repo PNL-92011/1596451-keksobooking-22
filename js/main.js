@@ -134,6 +134,9 @@ const PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ];
 
+// КОЛ-ВО ОБЪЯВЛЕНИЙ
+const SIMILAR_AD_AMOUNT = 10;
+
 
 //  АВАТАР
 /** Функция получения случайного ЦЕЛОГО числа из переданного диапазона включительно
@@ -176,7 +179,7 @@ function getRandomNumbers(min, max) {
   if (min >= 0 && max >= 0 && max > min) {
     min = Math.ceil(min);
     max = Math.floor(max);
-  } else console.log('Please check the price. Should be > 0.')
+  } else console.log('Please check the data!')
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -185,8 +188,8 @@ function getRandomNumbers(min, max) {
  * @param {array} — массив данных
  * @return {array} — итоговый массив
  */
-const getRandomElements = (array) => {
-  return array[Math.floor(Math.random() * array.length)];
+const getRandomElements = (sets) => {
+  return sets[Math.floor(Math.random() * sets.length)];
 }
 
 
@@ -219,3 +222,7 @@ function createAd() {
 console.log(
   createAd(),
 );
+
+const similarAds = new Array(SIMILAR_AD_AMOUNT).fill(1).map(() => createAd());
+
+console.log(similarAds);
