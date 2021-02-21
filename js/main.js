@@ -1,12 +1,6 @@
-import './base.js';
+import './data.js';
 import './util.js';
-import './create-ads.js';
 
-import {createAd} from './util.js';
-import {similarAds} from './create-ads.js';
-
-console.log(
-  createAd(),
-);
+import {similarAds} from './data.js';
 
 console.log(similarAds);
