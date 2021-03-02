@@ -1,6 +1,7 @@
 import './data.js';
 import './util.js';
+import './cards.js';
 
-import {similarAds} from './data.js';
+import {createAds} from './data.js';
 
-console.log(similarAds);
+console.log(createAds);

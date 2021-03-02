@@ -92,8 +92,7 @@ function createAd() {  // const createAd = () => {
   }
 }
 
-const similarAds = new Array(SIMILAR_AD_AMOUNT).fill(1).map(() => createAd());
+/*const createAds = new Array(SIMILAR_AD_AMOUNT).fill(1).map(() => createAd());*/
+const createAds = () => new Array(SIMILAR_AD_AMOUNT).fill(1).map(() => createAd());
 
-export {similarAds}
-export {createAd}
-export {HEADERS, TYPES, CHECKTIME, FEATURES, DESCRIPTIONS, PHOTOS, SIMILAR_AD_AMOUNT}
+export {HEADERS, TYPES, CHECKTIME, FEATURES, DESCRIPTIONS, PHOTOS, SIMILAR_AD_AMOUNT, createAd, createAds};
