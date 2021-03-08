@@ -1,4 +1,4 @@
-import {getRandomAvatarIndex, getRandomLocationX, getRandomLocationY, getRandomNumbers, getRandomElements} from './util.js';
+import {getRandomAvatarIndex, getRandomLocationX, getRandomLocationY, getRandomNumbers, getRandomElements, getShuffled} from './util.js';
 
 const HEADERS = [
   'Шикарный дом на берегу залива',
@@ -79,9 +79,9 @@ function createAd() {  // const createAd = () => {
       guests: getRandomNumbers(1, 20),
       checkin: getRandomElements(CHECKTIME),
       checkout: getRandomElements(CHECKTIME),
-      features: getRandomElements(FEATURES),
+      features: getShuffled(FEATURES).slice(getRandomNumbers(0, FEATURES.length-1)),
       description: getRandomElements(DESCRIPTIONS),
-      photos: getRandomElements(PHOTOS),
+      photos: getShuffled(PHOTOS).slice(getRandomNumbers(0, PHOTOS.length-1)),
     },
     location: {
       x: coordinateX,
