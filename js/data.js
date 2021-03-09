@@ -1,4 +1,4 @@
-import {getRandomAvatarIndex, getRandomLocationX, getRandomLocationY, getRandomNumbers, getRandomElements} from './util.js';
+import {getRandomAvatarIndex, getRandomLocationX, getRandomLocationY, getRandomNumbers, getRandomElements, getShuffled} from './util.js';
 
 const HEADERS = [
   'Шикарный дом на берегу залива',
@@ -55,8 +55,6 @@ const PHOTOS = [
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg',
 ];
 
-const SIMILAR_AD_AMOUNT = 10;
-
 
 /**
  * Функция генерирования объекта
@@ -70,7 +68,7 @@ function createAd() {  // const createAd = () => {
 
   return {
     author: {
-      avatar: 'img/avatars/users0' + getRandomAvatarIndex(1, 8) + '.png',
+      avatar: 'img/avatars/user0' + getRandomAvatarIndex(1, 8) + '.png',
     },
     offer: {
       title: getRandomElements(HEADERS),
@@ -81,9 +79,9 @@ function createAd() {  // const createAd = () => {
       guests: getRandomNumbers(1, 20),
       checkin: getRandomElements(CHECKTIME),
       checkout: getRandomElements(CHECKTIME),
-      features: getRandomElements(FEATURES),
+      features: getShuffled(FEATURES).slice(getRandomNumbers(0, FEATURES.length-1)),
       description: getRandomElements(DESCRIPTIONS),
-      photos: getRandomElements(PHOTOS),
+      photos: getShuffled(PHOTOS).slice(getRandomNumbers(0, PHOTOS.length-1)),
     },
     location: {
       x: coordinateX,
@@ -92,8 +90,7 @@ function createAd() {  // const createAd = () => {
   }
 }
 
-const similarAds = new Array(SIMILAR_AD_AMOUNT).fill(1).map(() => createAd());
+/*const createAds = new Array(SIMILAR_AD_AMOUNT).fill(1).map(() => createAd());*/
+const createAds = (COUNT) => new Array(COUNT).fill(null).map(() => createAd());
 
-export {similarAds}
-export {createAd}
-export {HEADERS, TYPES, CHECKTIME, FEATURES, DESCRIPTIONS, PHOTOS, SIMILAR_AD_AMOUNT}
+export {HEADERS, TYPES, CHECKTIME, FEATURES, DESCRIPTIONS, PHOTOS, createAd, createAds};

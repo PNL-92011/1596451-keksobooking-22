@@ -55,4 +55,15 @@ const getRandomElements = (sets) => {
   return sets[Math.floor(Math.random() * sets.length)];
 }
 
-export {getRandomAvatarIndex, getRandomLocationX, getRandomLocationY, getRandomNumbers, getRandomElements}
+
+/**
+ * Функция перемешивания данных в массиве
+ * @param {array} — массив данных
+ * @return {array} — итоговый массив
+*/
+const getShuffled = (arr) => arr.sort(function () {
+  return Math.random() - 0.5;
+});
+
+
+export {getRandomAvatarIndex, getRandomLocationX, getRandomLocationY, getRandomNumbers, getRandomElements, getShuffled}
