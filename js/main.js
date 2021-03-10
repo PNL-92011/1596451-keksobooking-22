@@ -1,3 +1,4 @@
+import './form.js';
 import {createAds} from './data.js';
 import {similarListElement, renderCard} from './card.js';
 
