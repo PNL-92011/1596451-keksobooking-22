@@ -1,4 +1,4 @@
-const photoSize = {
+const PhotoSize = {
   WIDTH: 45,
   HEIGHT: 40,
 };
@@ -11,19 +11,20 @@ const similarAdTemplate = document.querySelector('#card')
 
 /**
  * Функция отображения карточки объявления
+ * @param {{object, object}} author, offer - данные объявления
  * @return {object} карточка объявления по шаблону
  */
 
-const renderCard = (elem) => {
+const renderCard = ({author, offer}) => {
 
   const adElement = similarAdTemplate.cloneNode(true);
 
   // функция вывода иконок преимуществ в карточку объявления
-  const getFeaturesNumber = (FEATURES) => { // используем параметр в функции, чтобы она была объявлена не глобально, а локально!
-    if (elem.offer.features) {
-      elem.offer.features.forEach((feature) => { // объявляем параметр (feature) и используем его в цикле
+  const getFeaturesNumber = (feature) => { // используем параметр в функции, чтобы она была объявлена не глобально, а локально!
+    if (feature) {
+      offer.features.forEach((feature) => { // объявляем параметр (feature) и используем его в цикле
         const featureItem = document.createElement('li');
-        featureItem.classList.add('popup__feature', `popup__feature--${[feature]}`);
+        featureItem.classList.add('popup__feature', `popup__feature--${feature}`);
         adElement.querySelector('.popup__features').append(featureItem);
       });
     } else { // Если данных для заполнения не хватает, соответствующий блок в карточке скрывается
@@ -32,14 +33,14 @@ const renderCard = (elem) => {
   };
 
   // функция вывода фото в карточку объявления
-  const getPhotosNumber = (PHOTOS) => {
-    if (elem.offer.photos) {
-      elem.offer.photos.forEach((photo) => {
+  const getPhotosNumber = (photos) => {
+    if (photos) {
+      photos.forEach((photo) => {
         const photoItem = document.createElement('img');
         photoItem.src = photo;
         photoItem.alt = 'Фотография жилья';
-        photoItem.style.width = `${photoSize.WIDTH}px`;
-        photoItem.style.height = `${photoSize.HEIGHT}px`;
+        photoItem.style.width = `${PhotoSize.WIDTH}px`;
+        photoItem.style.height = `${PhotoSize.HEIGHT}px`;
         photoItem.classList.add('popup__photo');
         adElement.querySelector('.popup__photos').append(photoItem);
       });
@@ -49,18 +50,18 @@ const renderCard = (elem) => {
   };
 
   // заполнение полей объявления данными по шаблону
-  adElement.querySelector('.popup__title').textContent = elem.offer.title;
-  adElement.querySelector('.popup__text--address').textContent = elem.offer.address;
-  adElement.querySelector('.popup__text--price').textContent = `${elem.offer.price} ₽/ночь`;
-  adElement.querySelector('.popup__type').textContent = elem.offer.type;
-  adElement.querySelector('.popup__text--capacity').textContent = `${elem.offer.rooms} комнат(ы) для ${elem.offer.guests} гостей`;
-  adElement.querySelector('.popup__text--time').textContent = `Заезд после ${elem.offer.checkin}, выезд до ${elem.offer.checkout}`;
-  adElement.querySelector('.popup__description').textContent = elem.offer.description;
-  adElement.querySelector('.popup__avatar').src = elem.author.avatar;
+  adElement.querySelector('.popup__title').textContent = offer.title;
+  adElement.querySelector('.popup__text--address').textContent = offer.address;
+  adElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
+  adElement.querySelector('.popup__type').textContent = offer.type;
+  adElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнат(ы) для ${offer.guests} гостей`;
+  adElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
+  adElement.querySelector('.popup__description').textContent = offer.description;
+  adElement.querySelector('.popup__avatar').src = author.avatar;
   adElement.querySelector('.popup__features').textContent = '';
-  getFeaturesNumber();
+  getFeaturesNumber(offer.features);
   adElement.querySelector('.popup__photos').textContent = '';
-  getPhotosNumber();
+  getPhotosNumber(offer.photos);
 
 
   /**
@@ -77,14 +78,14 @@ const renderCard = (elem) => {
     }
   }
 
-  insertValue(elem.offer.title, '.popup__title');
-  insertValue(elem.offer.address, '.popup__text--address');
-  insertValue(`${elem.offer.price} ₽/ночь`, '.popup__text--price');
-  insertValue(elem.offer.type, '.popup__type');
-  insertValue(`${elem.offer.rooms} комнат(ы) для ${elem.offer.guests} гостей`, '.popup__text--capacity');
-  insertValue(`Заезд после ${elem.offer.checkin}, выезд до ${elem.offer.checkout}`, '.popup__text--time');
-  insertValue(elem.offer.description, '.popup__description');
-  insertValue(elem.author.avatar, '.popup__avatar');
+  insertValue(offer.title, '.popup__title');
+  insertValue(offer.address, '.popup__text--address');
+  insertValue(`${offer.price} ₽/ночь`, '.popup__text--price');
+  insertValue(offer.type, '.popup__type');
+  insertValue(`${offer.rooms} комнат(ы) для ${offer.guests} гостей`, '.popup__text--capacity');
+  insertValue(`Заезд после ${offer.checkin}, выезд до ${offer.checkout}`, '.popup__text--time');
+  insertValue(offer.description, '.popup__description');
+  insertValue(author.avatar, '.popup__avatar');
 
 
   return adElement;

@@ -1,8 +1,8 @@
 const MinPrice = {
-  bungalow: 0,
-  flat: 1000,
-  house: 5000,
-  palace: 10000,
+  BUNGALOW: 0,
+  FLAT: 1000,
+  HOUSE: 5000,
+  PALACE: 10000,
 }
 
 //const maxPrice = 1000000;
@@ -17,8 +17,8 @@ const formTimeOut = document.querySelector('#timeout');
  * Выбор опции меняет атрибуты минимального значения и плейсхолдера поля «Цена за ночь»
  */
 formTypeHouse.addEventListener('change', () => { // обработчик события
-  formPriceNight.price = MinPrice[formTypeHouse.value]; // назначение мин цены по типу жилья
-  formPriceNight.placeholder = MinPrice[formTypeHouse.value]; // назначение placeholder мин цены по типу жилья
+  formPriceNight.min = MinPrice[formTypeHouse.value.toUpperCase()]; // назначение мин цены по типу жилья
+  formPriceNight.placeholder = MinPrice[formTypeHouse.value.toUpperCase()]; // назначение placeholder мин цены по типу жилья
 });
 
 
