@@ -61,7 +61,7 @@ const getRandomElements = (sets) => {
  * @param {array} — массив данных
  * @return {array} — итоговый массив
 */
-const getShuffled = (arr) => arr.sort(function () {
+const getShuffled = (arr) => arr.sort(() => {
   return Math.random() - 0.5;
 });
 
