@@ -6,5 +6,8 @@ import {createAds} from './data.js';
 
 const COUNT = 10;
 const dataAds = createAds(COUNT);
+console.log(dataAds);
 
 // similarListElement.appendChild(renderCard(dataAds[0]));
+
+export {dataAds};
