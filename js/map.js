@@ -1,34 +1,26 @@
 /* global L:readonly */
-import {adForm, mapFilters, getFormOn, getFilterOn} from './form.js';
-import {createAds} from './data.js';
+import {setActivatePage} from './form.js';
 import {renderCard} from './card.js';
 
-const COUNT = 10;
-const dataAds = createAds(COUNT);
 
+const TokioCenter = {
+  lat: 35.68950,
+  lng: 139.69200,
+}
 
-// const LAT = 35.68950;
-// const LNG = 139.69200;
+const ZOOM = 10;
+const DECIMAL = 5;
 
-// const TokioCenter = {
-//   lat: 35.68950,
-//   lng: 139.69200,
-// }
-
-
-// Добавление карты на страницу и активация формы и фильтров
-const map = L.map('map-canvas') // место для карты определяем по id
+// Аактивации карты на странице
+const map = L.map('map-canvas')
   .on('load', () => {
-    adForm.classList.remove('ad-form--disabled');
-    getFormOn();
-    mapFilters.classList.remove('ad-form--disabled');
-    getFilterOn();
-    console.log('Карта готова !!!')
+    setActivatePage(true);
+    //console.log('Карта готова !!!')
   })
   .setView({
-    lat: 35.68950,
-    lng: 139.69200,
-  }, 10);
+    lat: TokioCenter.lat,
+    lng: TokioCenter.lng,
+  }, ZOOM);
 
 // Добавление к карте копирайт
 L.tileLayer(
@@ -37,15 +29,18 @@ L.tileLayer(
   },
 ).addTo(map);
 
-const mainPinMarker = L.icon({ // Кастомная иконка для главного маркера
+// Кастомная иконка для главного маркера
+const mainPinMarker = L.icon({
   iconUrl: './img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
 });
 
+
+// Главная метка
 const mainMarker = L.marker({
-  lat: 35.68950,
-  lng: 139.69200,
+  lat: TokioCenter.lat,
+  lng: TokioCenter.lng,
 }, {
   draggable: true, // Перемещение маркера по карте
   icon: mainPinMarker, // Добавление кастомной иконки маркера
@@ -54,48 +49,45 @@ mainMarker.addTo(map);
 
 
 // Получение адреса путём перемещения главной метки
-mainMarker.on('moveend', (evt) => {
+mainMarker.on('move', (evt) => {
   const formAddress = document.querySelector('#address');
-  formAddress.value = `${evt.target.getLatLng().lat.toFixed(5)}, ${evt.target.getLatLng().lng.toFixed(5)}`;
-
-  console.log(formAddress.value);
+  formAddress.value = `${evt.target.getLatLng().lat.toFixed(DECIMAL)}, ${evt.target.getLatLng().lng.toFixed(DECIMAL)}`;
 });
 
 
-// Добавление на карту маркеров соседних объявлений
+/**
+  * Функция отображения обычных маркеров для объявлений на карте
+  * При нажатии на маркер открывается балун с карточкой объявления по шаблону
+  * @param {array} pins — массив объявлений
+  */
+const renderPins = (pins) => {
+  pins.forEach(({author, offer, location}) => {
+    const ordinarPinMarker = L.icon({     // Иконка для обычного маркера
+      iconUrl: './img/pin.svg',
+      iconSize: [32, 32],
+      iconAnchor: [18, 32],
+    });
 
-dataAds.forEach(({author, offer, location}) => {
-  const ordinarPinMarker = L.icon({     // Иконка для обычного маркера
-    iconUrl: './img/pin.svg',
-    iconSize: [32, 32],
-    iconAnchor: [18, 32],
-  });
-
-  const ordinaryMarker = L.marker(
-    {
-      lat: location.x,
-      lng: location.y,
-    },
-    {
-      draggable: false,
-      icon: ordinarPinMarker,
-    },
-  );
-
-  ordinaryMarker
-    .addTo(map)
-    .bindPopup(
-      renderCard({author, offer}),
+    const ordinaryMarker = L.marker(
       {
-        keepInView: true,
+        lat: location.x,
+        lng: location.y,
+      },
+      {
+        draggable: false,
+        icon: ordinarPinMarker,
       },
     );
-});
 
+    ordinaryMarker
+      .addTo(map)
+      .bindPopup(
+        renderCard({author, offer}),
+        {
+          keepInView: true,
+        },
+      );
+  });
+}
 
-
-
-//  var latlng = L.latLng(50.5, 30.5);
-
-//  L.latLng(<Number> latitude, <Number> longitude, <Number> altitude?)
-// Creates an object representing a geographical point with the given latitude and longitude (and optionally altitude).
+export {renderPins};

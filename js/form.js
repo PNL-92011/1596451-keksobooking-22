@@ -1,52 +1,8 @@
-// АКТИВНОЕ И НЕАКТИВНОЕ СОСТОЯНИЕ СТРАНИЦЫ
-
 const adForm = document.querySelector('.ad-form');
 const adFormElements = adForm.querySelectorAll('.ad-form__element');
 const mapFilters = document.querySelector('.map__filters');
 const mapFilterElements = mapFilters.querySelectorAll('.map__filter');
 
-
-// отключение формы
-adForm.classList.add('ad-form--disabled'); // Форма заполнения информации об объявлении .ad-form содержит класс ad-form--disabled
-
-const getFormOff = (adFormElements) => { // Все интерактивные элементы формы .ad-form должны быть заблокированы с помощью атрибута disabled, добавленного на них или на их родительские блоки fieldset;
-  adFormElements.forEach((formElement) => {
-    formElement.setAttribute('disabled', 'disabled');
-  });
-};
-getFormOff(adFormElements);
-
-// отключение фильтров
-mapFilters.classList.add('map__filter--disabled'); // Форма с фильтрами .map__filters заблокирована (также добавлен специальный класс);
-
-const getFilterOff = (mapFilterElements) => { // на её интерактивные элементы атрибуты disabled;
-  mapFilterElements.forEach((filterElem) => {
-    filterElem.setAttribute('disabled', 'disabled');
-  });
-};
-getFilterOff(mapFilterElements);
-
-
-
-// АКТИВАЦИЯ формы
-const getFormOn = () => {
-  adFormElements.forEach((formElement) => {
-    formElement.removeAttribute('disabled', 'disabled');
-  });
-};
-
-// АКТИВАЦИЯ фильтров
-mapFilters.classList.remove('ad-form--disabled');
-
-const getFilterOn = () => {
-  mapFilterElements.forEach((filterElem) => {
-    filterElem.removeAttribute('disabled', 'disabled');
-  });
-};
-
-
-
-// ОБРАБОТКА ПОЛЬЗОВАТЕЛЬСКОГО ВВОДА ДЛЯ ПОЛЕЙ
 const MinPrice = {
   BUNGALOW: 0,
   FLAT: 1000,
@@ -55,6 +11,37 @@ const MinPrice = {
 }
 
 //const maxPrice = 1000000;
+
+/**
+ * Функция, отвечающая за включение и отключение формы и фильтров
+ * @param {boolan} enable - состояние страницы
+ * @return {boolan} - состояние страницы
+ */
+
+const setActivatePage = (enable) => {
+  if (!enable) {
+    adForm.classList.add('ad-form--disabled');
+    adFormElements.forEach((element) => {
+      element.setAttribute('disabled', 'disabled');
+    });
+    mapFilters.classList.add('map__filter--disabled');
+    mapFilterElements.forEach((filterElem) => {
+      filterElem.setAttribute('disabled', 'disabled');
+    });
+  } else {
+    adForm.classList.remove('ad-form--disabled');
+    adFormElements.forEach((formElement) => {
+      formElement.removeAttribute('disabled', 'disabled');
+    });
+    mapFilters.classList.remove('ad-form--disabled');
+    mapFilterElements.forEach((filterElem) => {
+      filterElem.removeAttribute('disabled', 'disabled');
+    });
+  }
+}
+
+
+// ОБРАБОТКА ПОЛЬЗОВАТЕЛЬСКОГО ВВОДА ДЛЯ ПОЛЕЙ
 
 const formTypeHouse = document.querySelector('#type');
 const formPriceNight = document.querySelector('#price');
@@ -70,7 +57,6 @@ formTypeHouse.addEventListener('change', () => { // обработчик соб�
   formPriceNight.placeholder = MinPrice[formTypeHouse.value.toUpperCase()]; // назначение placeholder мин цены по типу жилья
 });
 
-
 /**
  * Поля «Время заезда» и «Время выезда» синхронизированы
  * Выбор опции одного поля автоматически изменят значение другого
@@ -84,5 +70,4 @@ formTimeOut.addEventListener('change', () => {
 
 
 
-
-export {adForm, adFormElements, mapFilters, mapFilterElements, getFormOff, getFormOn, getFilterOff,  getFilterOn};
+export {adForm, adFormElements, mapFilters, mapFilterElements, setActivatePage};
