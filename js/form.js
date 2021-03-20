@@ -24,8 +24,9 @@ const formTimeOut = document.querySelector('#timeout');
 
 const formTitleInput = document.querySelector('#title');
 const formPriceInput = document.querySelector('#price');
-// const formRooms = document.querySelector('#room_number');
-// const formCapacity = document.querySelector('#capacity');
+const formRooms = document.querySelector('#room_number');
+const formGuests = document.querySelector('#capacity');
+
 
 /**
  * Функция, отвечающая за включение и отключение формы и фильтров
@@ -63,10 +64,11 @@ const setActivatePage = (enable) => {
  * Поле «Тип жилья» влияет на минимальное значение поля «Цена за ночь»
  * Выбор опции меняет атрибуты минимального значения и плейсхолдера поля «Цена за ночь»
  */
-formTypeHouse.addEventListener('change', () => { // обработчик события
-  formPriceNight.min = MinPrice[formTypeHouse.value.toUpperCase()]; // назначение мин цены по типу жилья
-  formPriceNight.placeholder = MinPrice[formTypeHouse.value.toUpperCase()]; // назначение placeholder мин цены по типу жилья
+formTypeHouse.addEventListener('change', () => {
+  formPriceNight.min = MinPrice[formTypeHouse.value.toUpperCase()];
+  formPriceNight.placeholder = MinPrice[formTypeHouse.value.toUpperCase()];
 });
+
 
 /**
  * Поля «Время заезда» и «Время выезда» синхронизированы
@@ -84,7 +86,6 @@ formTimeOut.addEventListener('change', () => {
  * Поле "Заголовок объявления"
  * обязательное текстовое поле; min = 30 символов, max = 100 символов.
  */
-
 formTitleInput.addEventListener('input', (evt) => {
   const valueLength = evt.target.value.length;
 
@@ -136,7 +137,7 @@ formPriceInput.addEventListener('input', (evt) => {
   }
 
   formPriceInput.reportValidity();
-});
+}); // Как убрать сообщения браузеров ??
 
 
 /**
@@ -145,62 +146,30 @@ formPriceInput.addEventListener('input', (evt) => {
  * 1 комната - для 1 гостя; 2 комнаты - для 1 или 2 гостей; 3 комнаты - для 1 или 2 или 3 гостей
  * 100 комнат - не для гостей
  */
+formRooms.addEventListener('change', () => {
+  const valueRooms = formRooms.value;
 
-// const formRooms = document.querySelector('#room_number');
-// const formCapacity = document.querySelector('#capacity');
-
-// formRooms.addEventListener('change', () => {
-
-
-
-// })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * Поле "Цена за ночь"
- * обязательное числовое поле;  max = 1 000 000.
- */
-// formPriceInput.addEventListener('input', (evt) => {
-//   const maxValue = evt.target.value.max;
-//   const minValue = evt.target.value.min;
-
-//   if (maxValue > MAX_PRICE) {
-//     formPriceInput.setCustomValidity('Цена не может превышать 1 000 000');
-//   } else if (minValue < MIN_PRICE) {
-//     formPriceInput.setCustomValidity('Цена не может быть меньше 0');
-//   } else {
-//     formTitleInput.setCustomValidity('');
-//   }
-
-//   formPriceInput.reportValidity();
-
-// });
+  if (valueRooms == 1) {
+    formGuests.children[0].removeAttribute('disabled');
+    formGuests.children[1].setAttribute('disabled', 'disabled');
+    formGuests.children[2].setAttribute('disabled', 'disabled');
+    formGuests.children[3].setAttribute('disabled', 'disabled');
+  } else if (valueRooms == 2) {
+    formGuests.children[1].removeAttribute('disabled');
+    formGuests.children[2].setAttribute('disabled', 'disabled');
+    formGuests.children[3].setAttribute('disabled', 'disabled');
+  } else if (valueRooms == 3) {
+    formGuests.children[1].removeAttribute('disabled');
+    formGuests.children[2].removeAttribute('disabled');
+    formGuests.children[3].setAttribute('disabled', 'disabled');
+  } else if (valueRooms == 100) {
+    formGuests.children[3].removeAttribute('disabled');
+    formGuests.children[3].setAttribute('selected', 'selected');
+    formGuests.children[0].setAttribute('disabled', 'disabled');
+    formGuests.children[1].setAttribute('disabled', 'disabled');
+    formGuests.children[2].setAttribute('disabled', 'disabled');
+  }
+});
 
 
-
-
-
-
-
-
-export {
-  adForm,
-  adFormElements,
-  mapFilters,
-  mapFilterElements,
-  setActivatePage
-};
+export {setActivatePage};
