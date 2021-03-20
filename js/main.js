@@ -11,4 +11,3 @@ renderPins(dataAds);
 
 // similarListElement.appendChild(renderCard(dataAds[0]));
 
-
