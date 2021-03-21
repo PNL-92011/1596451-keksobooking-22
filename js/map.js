@@ -3,7 +3,7 @@ import {setActivatePage} from './form.js';
 import {renderCard} from './card.js';
 
 
-const TokioCenter = {
+const tokioCenter = {
   lat: 35.68950,
   lng: 139.69200,
 }
@@ -17,10 +17,7 @@ const map = L.map('map-canvas')
     setActivatePage(true);
     //console.log('Карта готова !!!')
   })
-  .setView({
-    lat: TokioCenter.lat,
-    lng: TokioCenter.lng,
-  }, ZOOM);
+  .setView(tokioCenter, ZOOM);
 
 // Добавление к карте копирайт
 L.tileLayer(
@@ -39,8 +36,8 @@ const mainPinMarker = L.icon({
 
 // Главная метка
 const mainMarker = L.marker({
-  lat: TokioCenter.lat,
-  lng: TokioCenter.lng,
+  lat: tokioCenter.lat,
+  lng: tokioCenter.lng,
 }, {
   draggable: true, // Перемещение маркера по карте
   icon: mainPinMarker, // Добавление кастомной иконки маркера
