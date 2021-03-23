@@ -1,13 +1,18 @@
 import './form.js';
-import {renderPins} from './map.js';
-import {createAds} from './data.js';
-// import {similarListElement, renderCard} from './card.js';
+import {
+  renderPins
+} from './map.js';
+import {
+  getData
+} from './fetch.js';
+//import {createAds} from './data.js';
+// const COUNT = 10;
+// const dataAds = createAds(COUNT);
 
 
-const COUNT = 10;
-const dataAds = createAds(COUNT);
 
-renderPins(dataAds);
+getData(
+  (ads) => {
+    renderPins(ads)
 
-// similarListElement.appendChild(renderCard(dataAds[0]));
-
+  }, (err) => console.log(err));

@@ -1,7 +1,5 @@
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
-// const MAX_PRICE = 1000000;
-// const MIN_PRICE = 0;
 
 
 const MinPrice = {
@@ -65,8 +63,7 @@ const setActivatePage = (enable) => {
  * Выбор опции меняет атрибуты минимального значения и плейсхолдера поля «Цена за ночь»
  */
 formTypeHouse.addEventListener('change', () => {
-  formPriceNight.min = MinPrice[formTypeHouse.value.toUpperCase()];
-  formPriceNight.placeholder = MinPrice[formTypeHouse.value.toUpperCase()];
+  formPriceNight.min = formPriceNight.placeholder = MinPrice[formTypeHouse.value.toUpperCase()];
 });
 
 
@@ -112,11 +109,9 @@ formPriceInput.addEventListener('input', (evt) => {
     formPriceInput.setCustomValidity('Ошибка! Цена должна быть больше нуля!!!');
   } else
 
-  // «Бунгало» — минимальная цена за ночь 0;
-  // Как это прописать? Сейчас ноль не воспринимается!
-  // if ((formTypeHouse.value == 'bungalow') && (valuePrice == MinPrice.BUNGALOW)) {
-  //   formPriceInput.setCustomValidity('Вы действительно хотите указать цену = 0?!');
-  // } else
+  if ((formTypeHouse.value == 'bungalow') && (valuePrice == MinPrice.BUNGALOW)) {
+    formPriceInput.setCustomValidity('Вы действительно хотите указать цену = 0?!');
+  } else
 
   if (valuePrice > 1000000) {
     formPriceInput.setCustomValidity('Цена не должна превышать 1 000 000 !!!');
@@ -172,4 +167,8 @@ formRooms.addEventListener('change', () => {
 });
 
 
-export {setActivatePage};
+
+
+export {
+  setActivatePage, adForm
+};
