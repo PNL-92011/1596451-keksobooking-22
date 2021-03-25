@@ -1,5 +1,3 @@
-import {adForm} from './form.js';
-
 /**
  * Функция получения данных с сервера (запрос методом GET)
  * @param {function} onSuccess — функция обработки данных при успешном их получении
@@ -12,24 +10,12 @@ const getData = (onSuccess, onError) => {
       onSuccess(ads);
     })
     .catch(() => {
-      onError('Ошибка при получении данных');
+      onError('Ошибка при получении данных с сервера');
     });
 }
 
 
-
-
-adForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();                            // отмена перехода на другую страницу при отправке формы
-
-  const formData = new FormData(evt.target);       // сбор данных из формы для отправки на сервер (методом fetch POST)
-
-  fetch('https://22.javascript.pages.academy/keksobooking', {
-    method: 'POST',
-    body: formData,
-  },
-  );
-});
-
-
 export {getData};
+
+
+

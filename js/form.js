@@ -1,3 +1,6 @@
+import {showSuccessMessage, showErrorMessage} from './modal.js';
+import {updateMap} from './map.js';
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 
@@ -24,6 +27,7 @@ const formTitleInput = document.querySelector('#title');
 const formPriceInput = document.querySelector('#price');
 const formRooms = document.querySelector('#room_number');
 const formGuests = document.querySelector('#capacity');
+
 
 
 /**
@@ -167,8 +171,79 @@ formRooms.addEventListener('change', () => {
 });
 
 
+/**
+ * Функция отправки пользовательских данных на сервер (методом POST)
+ * @param {function} onSuccess — функция обработки данных при успешном их получении
+ * @param {function} onError — функция обработки данных при ошибке
+ * @param {object} body — данные формы для отправки на сервер
+ */
+
+const sendData = (onSuccess, onError, body) => {
+  fetch('https://22.javascript.pages.academy/keksobooking',
+    {
+      method: 'POST',
+      body,
+    },
+  )
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+      } else {
+        onError('Ошибка при отправке данных');
+      }
+    })
+    .catch(() => {
+      onError('Ошибка при отправке данных');
+    });
+}
 
 
-export {
-  setActivatePage, adForm
+/**
+ * Очистка формы
+ */
+
+// ВОПРОСЫ :
+// Можно ли как-то объединить функции очистки полей формы и фильтры?
+// Правильно ли использовать для reset adForm и mapFilters ?
+
+
+const buttonSendForm = document.querySelector('.ad-form__submit');  // кнопка "Опубликовать"
+const buttonClearForm = document.querySelector('.ad-form__reset');  // кнопка "Очистить"
+
+const clearForm = () => {
+  buttonSendForm.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    adForm.reset();
+    mapFilters.reset();
+  });
+
+  buttonClearForm.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    adForm.reset();
+    mapFilters.reset();
+  });
+}
+
+
+
+/**
+ * Функция обработка кнопки "Опубликовать" при отправке данных фортмы
+ */
+const setFormSubmit = () => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      showSuccessMessage(),
+      showErrorMessage(),
+      clearForm(),
+      updateMap(),
+
+      new FormData(evt.target),
+    );
+  });
 };
+
+
+
+export {setActivatePage, adForm, sendData, setFormSubmit, clearForm};

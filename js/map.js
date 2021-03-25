@@ -14,10 +14,11 @@ const DECIMAL = 5;
 // Аактивации карты на странице
 const map = L.map('map-canvas')
   .on('load', () => {
-    setActivatePage(true);
-    //console.log('Карта готова !!!')
+    setActivatePage(true);        // Активация страницы
+
   })
-  .setView(tokioCenter, ZOOM);
+  .setView(tokioCenter, ZOOM);   // Отображение координат центра
+
 
 // Добавление к карте копирайт
 L.tileLayer(
@@ -67,8 +68,8 @@ const renderPins = (pins) => {
 
     const ordinaryMarker = L.marker(
       {
-        lat: location.x,
-        lng: location.y,
+        lat: location.lat,
+        lng: location.lng,
       },
       {
         draggable: false,
@@ -87,4 +88,20 @@ const renderPins = (pins) => {
   });
 }
 
-export {renderPins};
+
+/**
+  * Возврат карты в исходное состояние
+  */
+
+const updateMap = () => {
+  map.setLatLng(tokioCenter, ZOOM);
+  mainMarker.setLatLng({
+    lat: tokioCenter.lat,
+    lng: tokioCenter.lng,
+  });
+}
+
+
+
+
+export {renderPins, updateMap};

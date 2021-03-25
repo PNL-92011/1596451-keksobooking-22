@@ -1,18 +1,17 @@
 import './form.js';
-import {
-  renderPins
-} from './map.js';
-import {
-  getData
-} from './fetch.js';
-//import {createAds} from './data.js';
-// const COUNT = 10;
-// const dataAds = createAds(COUNT);
+import {renderPins} from './map.js';
+import {sendData, setFormSubmit, clearForm} from './form.js';
+import {getData} from './fetch.js';
+import {showAlert} from './util.js';
+//import {showSuccessMessage, showErrorMessage} from './modal.js';
 
 
 
-getData(
-  (ads) => {
-    renderPins(ads)
+getData((ads) => {
+  renderPins(ads);
+  setFormSubmit();
 
-  }, (err) => console.log(err));
+});
+
+
+
