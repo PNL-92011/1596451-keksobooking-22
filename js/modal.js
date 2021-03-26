@@ -1,4 +1,51 @@
 const main = document.querySelector('main');
+//const buttonTryAgain = document.querySelector('.error__button');  // const не срабатывает (???)
+
+
+// проверка нажатия Esc
+const isEscEvent = (evt) => {
+  return evt.key === 'Escape' || evt.key === 'Esc';
+};
+
+
+/**
+ * Функция закрытие сообщения по Esc или клике в любом месте экрана
+ */
+const closeSuccessMessage = (message) => {
+  document.addEventListener('keydown', (evt) => {
+    if (isEscEvent(evt)) {
+      message.remove();
+    }
+  })
+
+  document.addEventListener('click', () => {
+    message.remove();
+  })
+
+  document.querySelector('.ad-form').reset();          // очистка полей формы
+  //document.querySelector('.map__filters').reset();     // сброс фильтров --------  не работает
+
+}
+
+/**
+ * Функция закрытие сообщения О НЕУДАЧНОЙ ОТПРАВКЕ по Esc или клике в любом месте экрана
+ */
+const closeErrorMessage = (message) => {
+  document.addEventListener('keydown', (evt) => {
+    if (isEscEvent(evt)) {
+      message.remove();
+    }
+  })
+
+  document.addEventListener('click', () => {
+    message.remove();
+  })
+
+  document.querySelector('.error__button').addEventListener('click', () => {
+    message.remove();
+  })
+}
+
 
 
 /**
@@ -9,6 +56,7 @@ const showSuccessMessage = () => {
   const successMessage = successMessageTemplate.cloneNode(true);
 
   main.append(successMessage);
+  closeSuccessMessage(successMessage);
 }
 
 
@@ -20,7 +68,17 @@ const showErrorMessage = () => {
   const errorMessage = errorMessageTemplate.cloneNode(true);
 
   main.append(errorMessage);
+  closeErrorMessage(errorMessage);
 }
+
+
+
+
+
+
+
+
+
 
 
 export {showSuccessMessage, showErrorMessage}

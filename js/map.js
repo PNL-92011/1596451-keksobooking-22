@@ -94,7 +94,7 @@ const renderPins = (pins) => {
   */
 
 const updateMap = () => {
-  map.setLatLng(tokioCenter, ZOOM);
+  map.setView(tokioCenter, ZOOM);
   mainMarker.setLatLng({
     lat: tokioCenter.lat,
     lng: tokioCenter.lng,
