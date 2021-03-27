@@ -11,6 +11,11 @@ const tokioCenter = {
 const ZOOM = 10;
 const DECIMAL = 5;
 
+const layerOfPins = L.layerGroup();
+const removeOrdinaryMarkers = () => {
+  layerOfPins.remove();
+}
+
 // Аактивации карты на странице
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -78,7 +83,7 @@ const renderPins = (pins) => {
     );
 
     ordinaryMarker
-      .addTo(map)
+      .addTo(layerOfPins)
       .bindPopup(
         renderCard({author, offer}),
         {
@@ -86,7 +91,9 @@ const renderPins = (pins) => {
         },
       );
   });
+  layerOfPins.addTo(map)
 }
+
 
 
 /**
@@ -94,11 +101,12 @@ const renderPins = (pins) => {
   */
 
 const updateMap = () => {
-  map.setView(tokioCenter, ZOOM);
+  map.setView(tokioCenter, ZOOM);   // карта не встает в исходное
   mainMarker.setLatLng({
     lat: tokioCenter.lat,
     lng: tokioCenter.lng,
   });
+  removeOrdinaryMarkers();
 }
 
 

@@ -1,4 +1,6 @@
-const URL_GET = 'https://22.javascript.pages.academy/keksobooking/data';
+//import {setActivatePage} from './form.js';
+
+const URL_GET = 'https://22.javascript.pages.academy/keksobooking/data5';
 const URL_SEND = 'https://22.javascript.pages.academy/keksobooking'
 
 
@@ -39,11 +41,11 @@ const sendData = (onSuccess, onError, body) => {
       if (response.ok) {
         onSuccess();
       } else {
-        onError('Ошибка при отправке данных');
+        onError('Ошибка при отправке данных1');
       }
     })
     .catch(() => {
-      onError('Ошибка при отправке данных');
+      onError('Ошибка при отправке данных2');
     });
 }
 

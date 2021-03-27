@@ -183,11 +183,14 @@ const buttonClearForm = document.querySelector('.ad-form__reset');  // кноп�
 /**
  * Функция обработка кнопки "Опубликовать" при отправке данных формы
  */
-const setFormSubmit = () => {
+const setFormSubmit = (pins) => {
   buttonClearForm.addEventListener('click', (evt) => {
     evt.preventDefault();
+    updateMap();
+    renderPins(pins);
     adForm.reset();
     mapFilters.reset();
+
   });
 
   adForm.addEventListener('submit', (evt) => {
@@ -196,9 +199,8 @@ const setFormSubmit = () => {
     sendData(
       () => {
         showSuccessMessage();
-
         updateMap();
-        renderPins();
+        renderPins(pins);
         adForm.reset();
         mapFilters.reset();
       },
