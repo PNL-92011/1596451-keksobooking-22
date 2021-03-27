@@ -11,13 +11,19 @@ const tokioCenter = {
 const ZOOM = 10;
 const DECIMAL = 5;
 
+const layerOfPins = L.layerGroup();
+const removeOrdinaryMarkers = () => {
+  layerOfPins.remove();
+}
+
 // Аактивации карты на странице
 const map = L.map('map-canvas')
   .on('load', () => {
-    setActivatePage(true);
-    //console.log('Карта готова !!!')
+    setActivatePage(true);        // Активация страницы
+
   })
-  .setView(tokioCenter, ZOOM);
+  .setView(tokioCenter, ZOOM);   // Отображение координат центра
+
 
 // Добавление к карте копирайт
 L.tileLayer(
@@ -59,7 +65,7 @@ mainMarker.on('move', (evt) => {
   */
 const renderPins = (pins) => {
   pins.forEach(({author, offer, location}) => {
-    const ordinarPinMarker = L.icon({     // Иконка для обычного маркера
+    const ordinaryPinMarker = L.icon({     // Иконка для обычного маркера
       iconUrl: './img/pin.svg',
       iconSize: [32, 32],
       iconAnchor: [18, 32],
@@ -67,17 +73,17 @@ const renderPins = (pins) => {
 
     const ordinaryMarker = L.marker(
       {
-        lat: location.x,
-        lng: location.y,
+        lat: location.lat,
+        lng: location.lng,
       },
       {
         draggable: false,
-        icon: ordinarPinMarker,
+        icon: ordinaryPinMarker,
       },
     );
 
     ordinaryMarker
-      .addTo(map)
+      .addTo(layerOfPins)
       .bindPopup(
         renderCard({author, offer}),
         {
@@ -85,6 +91,25 @@ const renderPins = (pins) => {
         },
       );
   });
+  layerOfPins.addTo(map)
 }
 
-export {renderPins};
+
+
+/**
+  * Возврат карты в исходное состояние
+  */
+
+const updateMap = () => {
+  map.setView(tokioCenter, ZOOM);   // карта не встает в исходное
+  mainMarker.setLatLng({
+    lat: tokioCenter.lat,
+    lng: tokioCenter.lng,
+  });
+  removeOrdinaryMarkers();
+}
+
+
+
+
+export {renderPins, updateMap};

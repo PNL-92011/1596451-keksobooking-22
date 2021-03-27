@@ -1,13 +1,22 @@
-import './form.js';
 import {renderPins} from './map.js';
-import {createAds} from './data.js';
-// import {similarListElement, renderCard} from './card.js';
+import {setFormSubmit} from './form.js';
+import {getData} from './fetch.js';
+import {showAlert} from './util.js';
+
+const OFFERS_LIMIT = 10;
 
 
-const COUNT = 10;
-const dataAds = createAds(COUNT);
 
-renderPins(dataAds);
+getData(
+  (ads) => {
+    renderPins(ads.slice(0, OFFERS_LIMIT));
+    setFormSubmit(ads.slice(0, OFFERS_LIMIT));
+    //setFormSubmit();  // выдает два сообщения: успешно отправлено + ошибка отправки №2
+  }, (message) => showAlert(message));
 
-// similarListElement.appendChild(renderCard(dataAds[0]));
+
+
+
+
+
 

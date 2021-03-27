@@ -1,7 +1,9 @@
+import {renderPins, updateMap} from './map.js';
+import {showSuccessMessage, showErrorMessage} from './modal.js';
+import {sendData} from './fetch.js';
+
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
-// const MAX_PRICE = 1000000;
-// const MIN_PRICE = 0;
 
 
 const MinPrice = {
@@ -16,6 +18,8 @@ const adForm = document.querySelector('.ad-form');
 const adFormElements = adForm.querySelectorAll('.ad-form__element');
 const mapFilters = document.querySelector('.map__filters');
 const mapFilterElements = mapFilters.querySelectorAll('.map__filter');
+const mapFeatures = document.querySelector('.map__features');
+
 
 const formTypeHouse = document.querySelector('#type');
 const formPriceNight = document.querySelector('#price');
@@ -26,6 +30,7 @@ const formTitleInput = document.querySelector('#title');
 const formPriceInput = document.querySelector('#price');
 const formRooms = document.querySelector('#room_number');
 const formGuests = document.querySelector('#capacity');
+
 
 
 /**
@@ -57,6 +62,33 @@ const setActivatePage = (enable) => {
 }
 
 
+/**
+ * Функция, отвечающая за включение и отключение фильтров
+ * @param {boolan} enable - состояние страницы
+ * @return {boolan} - состояние страницы
+ */
+
+const setActivateFilters = (enable) => {
+  if (!enable) {
+    mapFilters.classList.add('map__filter--disabled');
+    mapFilterElements.forEach((filterElem) => {
+      filterElem.setAttribute('disabled', 'disabled');
+    });
+  // mapFeatures.classList.add('.map__features--disabled');
+  }
+
+  else {
+    mapFilters.classList.remove('ad-form--disabled');
+    mapFilterElements.forEach((filterElem) => {
+      filterElem.removeAttribute('disabled');
+    });
+    //mapFeatures.classList.remove('.map__features--disabled');
+  }
+}
+
+
+
+
 
 // ***  ОБРАБОТКА ПОЛЬЗОВАТЕЛЬСКОГО ВВОДА ДЛЯ ПОЛЕЙ
 
@@ -65,8 +97,7 @@ const setActivatePage = (enable) => {
  * Выбор опции меняет атрибуты минимального значения и плейсхолдера поля «Цена за ночь»
  */
 formTypeHouse.addEventListener('change', () => {
-  formPriceNight.min = MinPrice[formTypeHouse.value.toUpperCase()];
-  formPriceNight.placeholder = MinPrice[formTypeHouse.value.toUpperCase()];
+  formPriceNight.min = formPriceNight.placeholder = MinPrice[formTypeHouse.value.toUpperCase()];
 });
 
 
@@ -112,11 +143,9 @@ formPriceInput.addEventListener('input', (evt) => {
     formPriceInput.setCustomValidity('Ошибка! Цена должна быть больше нуля!!!');
   } else
 
-  // «Бунгало» — минимальная цена за ночь 0;
-  // Как это прописать? Сейчас ноль не воспринимается!
-  // if ((formTypeHouse.value == 'bungalow') && (valuePrice == MinPrice.BUNGALOW)) {
-  //   formPriceInput.setCustomValidity('Вы действительно хотите указать цену = 0?!');
-  // } else
+  if ((formTypeHouse.value == 'bungalow') && (valuePrice == MinPrice.BUNGALOW)) {
+    formPriceInput.setCustomValidity('Вы действительно хотите указать цену = 0?!');
+  } else
 
   if (valuePrice > 1000000) {
     formPriceInput.setCustomValidity('Цена не должна превышать 1 000 000 !!!');
@@ -172,4 +201,42 @@ formRooms.addEventListener('change', () => {
 });
 
 
-export {setActivatePage};
+/**
+ * Очистка формы
+ */
+
+//const buttonSendForm = document.querySelector('.ad-form__submit');  // кнопка "Опубликовать"
+const buttonClearForm = document.querySelector('.ad-form__reset');  // кнопка "Очистить"
+
+
+/**
+ * Функция обработка кнопки "Опубликовать" при отправке данных формы
+ */
+const setFormSubmit = (pins) => {
+  buttonClearForm.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    updateMap();
+    renderPins(pins);
+    adForm.reset();
+    mapFilters.reset();
+  });
+
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => {
+        showSuccessMessage();
+        updateMap();
+        renderPins(pins);
+        adForm.reset();
+        mapFilters.reset();
+      },
+      showErrorMessage,
+      new FormData(evt.target),
+    );
+  });
+}
+
+
+export {setActivatePage, setFormSubmit, setActivateFilters, mapFeatures};
