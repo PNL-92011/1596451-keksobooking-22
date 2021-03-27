@@ -65,7 +65,7 @@ mainMarker.on('move', (evt) => {
   */
 const renderPins = (pins) => {
   pins.forEach(({author, offer, location}) => {
-    const ordinarPinMarker = L.icon({     // Иконка для обычного маркера
+    const ordinaryPinMarker = L.icon({     // Иконка для обычного маркера
       iconUrl: './img/pin.svg',
       iconSize: [32, 32],
       iconAnchor: [18, 32],
@@ -78,7 +78,7 @@ const renderPins = (pins) => {
       },
       {
         draggable: false,
-        icon: ordinarPinMarker,
+        icon: ordinaryPinMarker,
       },
     );
 

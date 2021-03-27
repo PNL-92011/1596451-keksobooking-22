@@ -1,17 +1,14 @@
 import {renderPins} from './map.js';
-import {setActivatePage, setFormSubmit} from './form.js';
+import {setFormSubmit} from './form.js';
 import {getData} from './fetch.js';
 import {showAlert} from './util.js';
 
-
+const OFFERS_LIMIT = 10;
 
 getData(
   (ads) => {
-    //setActivatePage(false);  // работает не корректно 
-    renderPins(ads);
-    setActivatePage(true);    // работает не корректно
-    setFormSubmit(ads);
-
+    renderPins(ads.slice(0, OFFERS_LIMIT));
+    setFormSubmit(ads.slice(0, OFFERS_LIMIT));
   }, (message) => showAlert(message));
 
 

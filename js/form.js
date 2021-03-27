@@ -60,6 +60,29 @@ const setActivatePage = (enable) => {
 }
 
 
+/**
+ * Функция, отвечающая за включение и отключение фильтров
+ * @param {boolan} enable - состояние страницы
+ * @return {boolan} - состояние страницы
+ */
+
+const setActivateFilters = (enable) => {
+  if (!enable) {
+    mapFilters.classList.add('map__filter--disabled');
+    mapFilterElements.forEach((filterElem) => {
+      filterElem.setAttribute('disabled', 'disabled');
+    });
+  } else {
+    mapFilters.classList.remove('ad-form--disabled');
+    mapFilterElements.forEach((filterElem) => {
+      filterElem.removeAttribute('disabled', 'disabled');
+    });
+  }
+}
+
+
+
+
 
 // ***  ОБРАБОТКА ПОЛЬЗОВАТЕЛЬСКОГО ВВОДА ДЛЯ ПОЛЕЙ
 
@@ -190,7 +213,6 @@ const setFormSubmit = (pins) => {
     renderPins(pins);
     adForm.reset();
     mapFilters.reset();
-
   });
 
   adForm.addEventListener('submit', (evt) => {
@@ -211,4 +233,4 @@ const setFormSubmit = (pins) => {
 }
 
 
-export {setActivatePage, setFormSubmit};
+export {setActivatePage, setFormSubmit, setActivateFilters};
