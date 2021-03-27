@@ -1,6 +1,6 @@
 //import {setActivatePage} from './form.js';
 
-const URL_GET = 'https://22.javascript.pages.academy/keksobooking/data5';
+const URL_GET = 'https://22.javascript.pages.academy/keksobooking/data';
 const URL_SEND = 'https://22.javascript.pages.academy/keksobooking'
 
 
