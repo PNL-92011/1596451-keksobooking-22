@@ -18,6 +18,8 @@ const adForm = document.querySelector('.ad-form');
 const adFormElements = adForm.querySelectorAll('.ad-form__element');
 const mapFilters = document.querySelector('.map__filters');
 const mapFilterElements = mapFilters.querySelectorAll('.map__filter');
+const mapFeatures = document.querySelector('.map__features');
+
 
 const formTypeHouse = document.querySelector('#type');
 const formPriceNight = document.querySelector('#price');
@@ -72,11 +74,15 @@ const setActivateFilters = (enable) => {
     mapFilterElements.forEach((filterElem) => {
       filterElem.setAttribute('disabled', 'disabled');
     });
-  } else {
+  // mapFeatures.classList.add('.map__features--disabled');
+  }
+
+  else {
     mapFilters.classList.remove('ad-form--disabled');
     mapFilterElements.forEach((filterElem) => {
-      filterElem.removeAttribute('disabled', 'disabled');
+      filterElem.removeAttribute('disabled');
     });
+    //mapFeatures.classList.remove('.map__features--disabled');
   }
 }
 
@@ -233,4 +239,4 @@ const setFormSubmit = (pins) => {
 }
 
 
-export {setActivatePage, setFormSubmit, setActivateFilters};
+export {setActivatePage, setFormSubmit, setActivateFilters, mapFeatures};

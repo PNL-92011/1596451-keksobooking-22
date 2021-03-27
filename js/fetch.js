@@ -1,4 +1,4 @@
-import {setActivateFilters} from './form.js';
+import {setActivateFilters, mapFeatures} from './form.js';
 
 const URL_GET = 'https://22.javascript.pages.academy/keksobooking/data';
 const URL_SEND = 'https://22.javascript.pages.academy/keksobooking'
@@ -18,6 +18,7 @@ const getData = (onSuccess, onError) => {
     .catch(() => {
       onError('Ошибка при получении данных с сервера!');
       setActivateFilters(false);
+      mapFeatures.disabled = true;
     });
 }
 
