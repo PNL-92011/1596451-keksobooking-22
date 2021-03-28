@@ -14,7 +14,6 @@ const similarAdTemplate = document.querySelector('#card')
  * @param {{object, object}} author, offer - данные объявления
  * @return {object} карточка объявления по шаблону
  */
-
 const renderCard = ({author, offer}) => {
 
   const adElement = similarAdTemplate.cloneNode(true);
@@ -92,7 +91,4 @@ const renderCard = ({author, offer}) => {
 };
 
 
-export {
-  similarListElement,
-  renderCard
-};
+export {similarListElement, renderCard};

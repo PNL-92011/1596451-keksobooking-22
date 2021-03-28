@@ -17,8 +17,8 @@ const getData = (onSuccess, onError) => {
     })
     .catch(() => {
       onError('Ошибка при получении данных с сервера!');
-      setActivateFilters(false);
-      mapFeatures.disabled = true;
+      setActivateFilters(false);       // блокировка фильтров-select
+      mapFeatures.disabled = true;     // блокировка фильтров-checkbox
     });
 }
 
@@ -29,7 +29,6 @@ const getData = (onSuccess, onError) => {
  * @param {function} onError — функция обработки данных при ошибке
  * @param {object} body — данные формы для отправки на сервер
  */
-
 const sendData = (onSuccess, onError, body) => {
   fetch(URL_SEND,
     {
