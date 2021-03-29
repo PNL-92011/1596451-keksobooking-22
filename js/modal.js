@@ -1,9 +1,7 @@
 const main = document.querySelector('main');
-//const buttonTryAgain = document.querySelector('.error__button');  // через const не срабатывает (Почему???)
-//const formMessage = errorMessage.querySelector('.error__message'); // через const не срабатывает (Почему???)
 
 /**
- * проверка нажатия Esc
+ * Проверка нажатия Esc
  */
 const isEscEvent = (evt) => {
   return evt.key === 'Escape' || evt.key === 'Esc';
@@ -25,8 +23,8 @@ const closeSuccessMessage = (message) => {
   })
 
   document.querySelector('.ad-form').reset();
-  //document.querySelector('.map__filters').reset();     // сброс фильтров --------  не работает !!!
 }
+
 
 /**
  * Функция закрытие сообщения О НЕУДАЧНОЙ ОТПРАВКЕ по Esc

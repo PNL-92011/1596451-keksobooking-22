@@ -72,7 +72,6 @@ const setActivateFilters = (enable) => {
     mapFilterElements.forEach((filterElem) => {
       filterElem.setAttribute('disabled', 'disabled');
     });
-  // mapFeatures.classList.add('.map__features--disabled');
   }
 
   else {
@@ -80,7 +79,6 @@ const setActivateFilters = (enable) => {
     mapFilterElements.forEach((filterElem) => {
       filterElem.removeAttribute('disabled');
     });
-    //mapFeatures.classList.remove('.map__features--disabled');
   }
 }
 
@@ -161,7 +159,7 @@ formPriceInput.addEventListener('input', (evt) => {
   }
 
   formPriceInput.reportValidity();
-}); // Как убрать сообщения браузеров ??
+}); 
 
 
 /**
@@ -203,10 +201,12 @@ formRooms.addEventListener('change', () => {
 const setFormSubmit = (pins) => {
   buttonClearForm.addEventListener('click', (evt) => {
     evt.preventDefault();
-    updateMap();
-    renderPins(pins);
+
     adForm.reset();
     mapFilters.reset();
+    updateMap();
+    renderPins(pins);
+
   });
 
   adForm.addEventListener('submit', (evt) => {

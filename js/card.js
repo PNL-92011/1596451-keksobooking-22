@@ -19,9 +19,9 @@ const renderCard = ({author, offer}) => {
   const adElement = similarAdTemplate.cloneNode(true);
 
   // функция вывода иконок преимуществ в карточку объявления
-  const getFeaturesNumber = (features) => { // используем параметр в функции, чтобы она была объявлена не глобально, а локально!
+  const getFeaturesNumber = (features) => {
     if (features) {
-      features.forEach((feature) => { // объявляем параметр (feature) и используем его в цикле
+      features.forEach((feature) => {
         const featureItem = document.createElement('li');
         featureItem.classList.add('popup__feature', `popup__feature--${feature}`);
         adElement.querySelector('.popup__features').append(featureItem);

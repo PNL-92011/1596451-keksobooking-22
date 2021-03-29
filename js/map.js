@@ -17,6 +17,7 @@ const removeOrdinaryMarkers = () => {
   layerOfPins.remove();
 }
 
+
 /**
  * Активации карты на странице
  */
@@ -58,6 +59,7 @@ const mainMarker = L.marker({
   icon: mainPinMarker, // Добавление кастомной иконки маркера
 });
 mainMarker.addTo(map);
+
 
 /**
  * Получение адреса путём перемещения главной метки
@@ -105,6 +107,7 @@ const createPins = (pins) => {
   layerOfPins.addTo(map)
 }
 
+
 /**
  * Функция отображения маркеров на карте с учетом фильтров
  */
@@ -127,8 +130,6 @@ const updateMap = () => {
   });
   removeOrdinaryMarkers();
 }
-
-
 
 
 export {renderPins, updateMap};
