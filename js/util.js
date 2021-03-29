@@ -6,11 +6,13 @@ const ALERT_SHOW_TIME = 5000;
  * @param {number} max — максимальное значение
  * @returns {number} — случайное число
  */
-function getRandomAvatarIndex(min, max) {
+const getRandomAvatarIndex = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
+
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
 
 /**
  * Функция получения случайного ДРОБНОГО числа для задания координат
@@ -19,15 +21,17 @@ function getRandomAvatarIndex(min, max) {
  * @param {number} n - количество знаков после запятой
  * @returns {number} — случайное число
  */
-function getRandomLocationX(min, max, n) {
+const getRandomLocationX = (min, max, n) => {
   min = Math.ceil(min);
   max = Math.floor(max);
+
   return Number((min + Math.random() * (max - min)).toFixed(n));
 }
 
-function getRandomLocationY(min, max, n) {
+const getRandomLocationY = (min, max, n) => {
   min = Math.ceil(min);
   max = Math.floor(max);
+
   return Number((min + Math.random() * (max - min)).toFixed(n));
 }
 
@@ -38,11 +42,12 @@ function getRandomLocationY(min, max, n) {
  * @param {number} max — максимальное значение
  * @returns {number} — случайное число
  */
-function getRandomNumbers(min, max) {
+const getRandomNumbers = (min, max) => {
   if (min >= 0 && max >= 0 && max > min) {
     min = Math.ceil(min);
     max = Math.floor(max);
   } else console.log('Please check the data!')
+
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -50,7 +55,7 @@ function getRandomNumbers(min, max) {
  * Функция получения случайного элемента массива
  * для полей: заголовок, тип жилья, время заезда/выезда,
  * преимуществ, описания объекта, фото
- * @param {array} — массив данных
+ * @param {array} sets — массив данных
  * @return {array} — итоговый массив
  */
 const getRandomElements = (sets) => {
@@ -93,8 +98,6 @@ const showAlert = (message) => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
 }
-
-
 
 
 export {getRandomAvatarIndex, getRandomLocationX, getRandomLocationY, getRandomNumbers, getRandomElements, getShuffled, showAlert};

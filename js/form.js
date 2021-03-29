@@ -31,14 +31,13 @@ const formPriceInput = document.querySelector('#price');
 const formRooms = document.querySelector('#room_number');
 const formGuests = document.querySelector('#capacity');
 
-
+const buttonClearForm = document.querySelector('.ad-form__reset');  // кнопка "Очистить"
 
 /**
  * Функция, отвечающая за включение и отключение формы и фильтров
  * @param {boolan} enable - состояние страницы
  * @return {boolan} - состояние страницы
  */
-
 const setActivatePage = (enable) => {
   if (!enable) {
     adForm.classList.add('ad-form--disabled');
@@ -67,7 +66,6 @@ const setActivatePage = (enable) => {
  * @param {boolan} enable - состояние страницы
  * @return {boolan} - состояние страницы
  */
-
 const setActivateFilters = (enable) => {
   if (!enable) {
     mapFilters.classList.add('map__filter--disabled');
@@ -87,10 +85,7 @@ const setActivateFilters = (enable) => {
 }
 
 
-
-
-
-// ***  ОБРАБОТКА ПОЛЬЗОВАТЕЛЬСКОГО ВВОДА ДЛЯ ПОЛЕЙ
+// ОБРАБОТКА ПОЛЬЗОВАТЕЛЬСКОГО ВВОДА ДЛЯ ПОЛЕЙ
 
 /**
  * Поле «Тип жилья» влияет на минимальное значение поля «Цена за ночь»
@@ -202,15 +197,8 @@ formRooms.addEventListener('change', () => {
 
 
 /**
- * Очистка формы
- */
-
-//const buttonSendForm = document.querySelector('.ad-form__submit');  // кнопка "Опубликовать"
-const buttonClearForm = document.querySelector('.ad-form__reset');  // кнопка "Очистить"
-
-
-/**
- * Функция обработка кнопки "Опубликовать" при отправке данных формы
+ * Функция обработки кнопок "Опубликовать" и "Очистить"
+ * @param {array} pins — массив объявлений
  */
 const setFormSubmit = (pins) => {
   buttonClearForm.addEventListener('click', (evt) => {
@@ -239,4 +227,4 @@ const setFormSubmit = (pins) => {
 }
 
 
-export {setActivatePage, setFormSubmit, setActivateFilters, mapFeatures};
+export {setActivatePage, setFormSubmit, setActivateFilters, mapFeatures, mapFilters};
