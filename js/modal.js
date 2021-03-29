@@ -64,7 +64,6 @@ const showSuccessMessage = () => {
 const showErrorMessage = (message) => {
   const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
   const errorMessage = errorMessageTemplate.cloneNode(true);
-  // formMessage.textContent = message; "errorMessage is not defined"  // не работает! Почему???
   errorMessage.querySelector('.error__message').textContent = message;
   main.append(errorMessage);
   closeErrorMessage(errorMessage);

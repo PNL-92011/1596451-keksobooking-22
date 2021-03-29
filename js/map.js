@@ -3,13 +3,19 @@ import {setActivatePage} from './form.js';
 import {renderCard} from './card.js';
 import {filterData} from './filter.js';
 
+const ZOOM = 10;
+const DECIMAL = 5;
+
 const tokioCenter = {
   lat: 35.68950,
   lng: 139.69200,
 }
 
-const ZOOM = 10;
-const DECIMAL = 5;
+const mainPin = {
+  iconUrl: './img/main-pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+}
 
 const layerOfPins = L.layerGroup();
 
@@ -42,11 +48,7 @@ L.tileLayer(
 /**
  * Кастомная иконка для главного маркера
  */
-const mainPinMarker = L.icon({
-  iconUrl: './img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
-});
+const mainPinMarker = L.icon(mainPin);
 
 /**
  * Главная метка
