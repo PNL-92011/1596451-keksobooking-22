@@ -1,16 +1,15 @@
-const PhotoSize = {
+const PhotoSizes = {
   WIDTH: 45,
   HEIGHT: 40,
 };
 
-const сardType = {
+const cardType = {
   bungalow: 'Бунгало',
   flat: 'Квартира',
   house: 'Дом',
   palace: 'Дворец',
 }
 
-const similarListElement = document.querySelector('.map__canvas');
 const similarAdTemplate = document.querySelector('#card')
   .content
   .querySelector('.popup');
@@ -23,7 +22,7 @@ const similarAdTemplate = document.querySelector('#card')
  */
 const renderCard = ({author, offer}) => {
 
-  const adElement = similarAdTemplate.cloneNode(true);
+  const card = similarAdTemplate.cloneNode(true);
 
   // функция вывода иконок преимуществ в карточку объявления
   const getFeaturesNumber = (features) => {
@@ -31,10 +30,10 @@ const renderCard = ({author, offer}) => {
       features.forEach((feature) => {
         const featureItem = document.createElement('li');
         featureItem.classList.add('popup__feature', `popup__feature--${feature}`);
-        adElement.querySelector('.popup__features').append(featureItem);
+        card.querySelector('.popup__features').append(featureItem);
       });
     } else { // Если данных для заполнения не хватает, соответствующий блок в карточке скрывается
-      adElement.querySelector('.popup__features').remove();
+      card.querySelector('.popup__features').remove();
     }
   };
 
@@ -45,20 +44,20 @@ const renderCard = ({author, offer}) => {
         const photoItem = document.createElement('img');
         photoItem.src = photo;
         photoItem.alt = 'Фотография жилья';
-        photoItem.style.width = `${PhotoSize.WIDTH}px`;
-        photoItem.style.height = `${PhotoSize.HEIGHT}px`;
+        photoItem.style.width = `${PhotoSizes.WIDTH}px`;
+        photoItem.style.height = `${PhotoSizes.HEIGHT}px`;
         photoItem.classList.add('popup__photo');
-        adElement.querySelector('.popup__photos').append(photoItem);
+        card.querySelector('.popup__photos').append(photoItem);
       });
     } else { // Если данных для заполнения не хватает, соответствующий блок в карточке скрывается
-      adElement.querySelector('.popup__photos').remove();
+      card.querySelector('.popup__photos').remove();
     }
   };
 
   // заполнение полей объявления данными по шаблону
-  adElement.querySelector('.popup__features').textContent = '';
+  card.querySelector('.popup__features').textContent = '';
   getFeaturesNumber(offer.features);
-  adElement.querySelector('.popup__photos').textContent = '';
+  card.querySelector('.popup__photos').textContent = '';
   getPhotosNumber(offer.photos);
 
 
@@ -70,23 +69,23 @@ const renderCard = ({author, offer}) => {
   */
   const insertValue = (value, selector) => {
     if (value) {
-      adElement.querySelector(selector).textContent = value;
+      card.querySelector(selector).textContent = value;
     } else {
-      adElement.querySelector(selector).remove();
+      card.querySelector(selector).remove();
     }
   }
 
   insertValue(offer.title, '.popup__title');
   insertValue(offer.address, '.popup__text--address');
   insertValue(`${offer.price} ₽/ночь`, '.popup__text--price');
-  insertValue(сardType[offer.type], '.popup__type');
+  insertValue(cardType[offer.type], '.popup__type');
   insertValue(`${offer.rooms} комнат(ы) для ${offer.guests} гостей`, '.popup__text--capacity');
   insertValue(`Заезд после ${offer.checkin}, выезд до ${offer.checkout}`, '.popup__text--time');
   insertValue(offer.description, '.popup__description');
   insertValue(author.avatar, '.popup__avatar');
 
-  return adElement;
+  return card;
 };
 
 
-export {similarListElement, renderCard};
+export {renderCard};

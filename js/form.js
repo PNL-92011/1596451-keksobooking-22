@@ -9,14 +9,14 @@ const ROOM_SECOND_OPTION = 2;
 const ROOM_THIRD_OPTION = 3;
 const ROOM_EXTRA_OPTION = 100;
 
-const MinPrice = {
+const MAX_PRICE = 1000000;
+
+const MinPrices = {
   BUNGALOW: 0,
   FLAT: 1000,
   HOUSE: 5000,
   PALACE: 10000,
 }
-
-const MAX_PRICE = 1000000;
 
 const adForm = document.querySelector('.ad-form');
 const adFormElements = adForm.querySelectorAll('.ad-form__element');
@@ -94,7 +94,7 @@ const setActivateFilters = (enable) => {
  * Выбор опции меняет атрибуты минимального значения и плейсхолдера поля «Цена за ночь»
  */
 formTypeHouse.addEventListener('change', () => {
-  formPriceNight.min = formPriceNight.placeholder = MinPrice[formTypeHouse.value.toUpperCase()];
+  formPriceNight.min = formPriceNight.placeholder = MinPrices[formTypeHouse.value.toUpperCase()];
 });
 
 
@@ -140,7 +140,7 @@ formPriceInput.addEventListener('input', (evt) => {
     formPriceInput.setCustomValidity('Ошибка! Цена должна быть больше нуля!!!');
   } else
 
-  if ((formTypeHouse.value === 'bungalow') && (valuePrice === MinPrice.BUNGALOW)) {
+  if ((formTypeHouse.value === 'bungalow') && (valuePrice === MinPrices.BUNGALOW)) {
     formPriceInput.setCustomValidity('Вы действительно хотите указать цену = 0?!');
   } else
 
@@ -148,15 +148,15 @@ formPriceInput.addEventListener('input', (evt) => {
     formPriceInput.setCustomValidity('Цена не должна превышать 1 000 000 !!!');
   } else
 
-  if ((formTypeHouse.value === 'flat') && (valuePrice < MinPrice.FLAT)) {
+  if ((formTypeHouse.value === 'flat') && (valuePrice < MinPrices.FLAT)) {
     formPriceInput.setCustomValidity('Цена должна быть больше 1 000 !!!');
   } else
 
-  if ((formTypeHouse.value === 'house') && (valuePrice < MinPrice.HOUSE)) {
+  if ((formTypeHouse.value === 'house') && (valuePrice < MinPrices.HOUSE)) {
     formPriceInput.setCustomValidity('Цена должна быть больше 5 000 !!!');
   } else
 
-  if ((formTypeHouse.value === 'palace') && (valuePrice < MinPrice.PALACE)) {
+  if ((formTypeHouse.value === 'palace') && (valuePrice < MinPrices.PALACE)) {
     formPriceInput.setCustomValidity('Цена должна быть больше 10 000 !!!');
   } else {
     formPriceInput.setCustomValidity('');

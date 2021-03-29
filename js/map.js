@@ -6,7 +6,7 @@ import {filterData} from './filter.js';
 const ZOOM = 10;
 const DECIMAL = 5;
 
-const tokioCenter = {
+const defaultCenterCoordinates = {
   lat: 35.68950,
   lng: 139.69200,
 }
@@ -38,7 +38,7 @@ const map = L.map('map-canvas')
     setActivatePage(true);        // Активация страницы
 
   })
-  .setView(tokioCenter, ZOOM);   // Отображение координат центра
+  .setView(defaultCenterCoordinates, ZOOM);   // Отображение координат центра
 
 
 /**
@@ -60,8 +60,8 @@ const mainPinMarker = L.icon(mainPin);
  * Главная метка
  */
 const mainMarker = L.marker({
-  lat: tokioCenter.lat,
-  lng: tokioCenter.lng,
+  lat: defaultCenterCoordinates.lat,
+  lng: defaultCenterCoordinates.lng,
 }, {
   draggable: true, // Перемещение маркера по карте
   icon: mainPinMarker, // Добавление кастомной иконки маркера
@@ -127,10 +127,10 @@ const renderPins = (pins) => {
  * Возврат карты в исходное состояние
  */
 const updateMap = () => {
-  map.setView(tokioCenter, ZOOM);   // карта не встает в исходное
+  map.setView(defaultCenterCoordinates, ZOOM);   // карта не встает в исходное
   mainMarker.setLatLng({
-    lat: tokioCenter.lat,
-    lng: tokioCenter.lng,
+    lat: defaultCenterCoordinates.lat,
+    lng: defaultCenterCoordinates.lng,
   });
   removeOrdinaryMarkers();
 }

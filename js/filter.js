@@ -25,32 +25,32 @@ const priceOptions = {
 
 /**
  * Проверка объявления на соответствие выбранному фильтру (тип жилья)
- * @param {object} elem - объявление
+ * @param {object} element - объявление
  * @return {boolean}
  */
-const searchMatches = (elem) => {
+const searchMatches = (element) => {
   let isType = true;
   let isPrice = true;
   let isRooms = true;
   let isGuests = true;
   let isFeatures = true;
 
-  if (filterType.value !== ANY) {isType = elem.offer.type === filterType.value; }
+  if (filterType.value !== ANY) {isType = element.offer.type === filterType.value; }
 
   let selectPrice = priceOptions[filterPrice.value];
   if (filterPrice.value !== ANY) {
-    isPrice = elem.offer.price >= selectPrice.min &&  elem.offer.price < selectPrice.max
+    isPrice = element.offer.price >= selectPrice.min &&  element.offer.price < selectPrice.max
   }
 
-  if (filterRooms.value !== ANY) {isRooms = elem.offer.rooms.toString() === filterRooms.value; }
+  if (filterRooms.value !== ANY) {isRooms = element.offer.rooms.toString() === filterRooms.value; }
 
-  if (filterGuests.value !== ANY) {isGuests = elem.offer.guests.toString() === filterGuests.value; }
+  if (filterGuests.value !== ANY) {isGuests = element.offer.guests.toString() === filterGuests.value; }
 
 
   let checkedFeatures = mapFilters.querySelectorAll('input[type="checkbox"]:checked');
   if (checkedFeatures) {
     checkedFeatures.forEach((feature) => {
-      if (elem.offer.features.indexOf(feature.value) === -1) {
+      if (element.offer.features.indexOf(feature.value) === -1) {
         isFeatures = false;
       }
     });
@@ -67,9 +67,9 @@ const searchMatches = (elem) => {
 const filterData = (data) => {
   const filteredAds = [];
 
-  data.forEach((elem) => {
-    if (searchMatches(elem)) {
-      filteredAds.push(elem);
+  data.forEach((element) => {
+    if (searchMatches(element)) {
+      filteredAds.push(element);
     }
   })
   return filteredAds;
