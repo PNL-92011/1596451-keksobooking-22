@@ -4,7 +4,10 @@ import {sendData} from './fetch.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
-
+const ROOM_FIRST_OPTION = 1;
+const ROOM_SECOND_OPTION = 2;
+const ROOM_THIRD_OPTION = 3;
+const ROOM_EXTRA_OPTION = 100;
 
 const MinPrice = {
   BUNGALOW: 0,
@@ -13,6 +16,7 @@ const MinPrice = {
   PALACE: 10000,
 }
 
+const MAX_PRICE = 1000000;
 
 const adForm = document.querySelector('.ad-form');
 const adFormElements = adForm.querySelectorAll('.ad-form__element');
@@ -72,7 +76,6 @@ const setActivateFilters = (enable) => {
     mapFilterElements.forEach((filterElem) => {
       filterElem.setAttribute('disabled', 'disabled');
     });
-  // mapFeatures.classList.add('.map__features--disabled');
   }
 
   else {
@@ -80,7 +83,6 @@ const setActivateFilters = (enable) => {
     mapFilterElements.forEach((filterElem) => {
       filterElem.removeAttribute('disabled');
     });
-    //mapFeatures.classList.remove('.map__features--disabled');
   }
 }
 
@@ -142,7 +144,7 @@ formPriceInput.addEventListener('input', (evt) => {
     formPriceInput.setCustomValidity('Вы действительно хотите указать цену = 0?!');
   } else
 
-  if (valuePrice > 1000000) {
+  if (valuePrice > MAX_PRICE) {
     formPriceInput.setCustomValidity('Цена не должна превышать 1 000 000 !!!');
   } else
 
@@ -161,7 +163,7 @@ formPriceInput.addEventListener('input', (evt) => {
   }
 
   formPriceInput.reportValidity();
-}); // Как убрать сообщения браузеров ??
+});
 
 
 /**
@@ -173,20 +175,20 @@ formPriceInput.addEventListener('input', (evt) => {
 formRooms.addEventListener('change', () => {
   const valueRooms = formRooms.value;
 
-  if (valueRooms == 1) {
+  if (valueRooms == ROOM_FIRST_OPTION) {
     formGuests.children[0].removeAttribute('disabled');
     formGuests.children[1].setAttribute('disabled', 'disabled');
     formGuests.children[2].setAttribute('disabled', 'disabled');
     formGuests.children[3].setAttribute('disabled', 'disabled');
-  } else if (valueRooms == 2) {
+  } else if (valueRooms == ROOM_SECOND_OPTION) {
     formGuests.children[1].removeAttribute('disabled');
     formGuests.children[2].setAttribute('disabled', 'disabled');
     formGuests.children[3].setAttribute('disabled', 'disabled');
-  } else if (valueRooms == 3) {
+  } else if (valueRooms == ROOM_THIRD_OPTION) {
     formGuests.children[1].removeAttribute('disabled');
     formGuests.children[2].removeAttribute('disabled');
     formGuests.children[3].setAttribute('disabled', 'disabled');
-  } else if (valueRooms == 100) {
+  } else if (valueRooms == ROOM_EXTRA_OPTION) {
     formGuests.children[3].removeAttribute('disabled');
     formGuests.children[3].setAttribute('selected', 'selected');
     formGuests.children[0].setAttribute('disabled', 'disabled');
@@ -203,10 +205,11 @@ formRooms.addEventListener('change', () => {
 const setFormSubmit = (pins) => {
   buttonClearForm.addEventListener('click', (evt) => {
     evt.preventDefault();
-    updateMap();
-    renderPins(pins);
+
     adForm.reset();
     mapFilters.reset();
+    updateMap();
+    renderPins(pins);
   });
 
   adForm.addEventListener('submit', (evt) => {
@@ -215,10 +218,11 @@ const setFormSubmit = (pins) => {
     sendData(
       () => {
         showSuccessMessage();
-        updateMap();
-        renderPins(pins);
         adForm.reset();
         mapFilters.reset();
+        updateMap();
+        renderPins(pins);
+
       },
       showErrorMessage,
       new FormData(evt.target),

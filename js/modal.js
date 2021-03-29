@@ -1,9 +1,7 @@
 const main = document.querySelector('main');
-//const buttonTryAgain = document.querySelector('.error__button');  // через const не срабатывает (Почему???)
-//const formMessage = errorMessage.querySelector('.error__message'); // через const не срабатывает (Почему???)
 
 /**
- * проверка нажатия Esc
+ * Проверка нажатия Esc
  */
 const isEscEvent = (evt) => {
   return evt.key === 'Escape' || evt.key === 'Esc';
@@ -25,8 +23,8 @@ const closeSuccessMessage = (message) => {
   })
 
   document.querySelector('.ad-form').reset();
-  //document.querySelector('.map__filters').reset();     // сброс фильтров --------  не работает !!!
 }
+
 
 /**
  * Функция закрытие сообщения О НЕУДАЧНОЙ ОТПРАВКЕ по Esc
@@ -66,7 +64,6 @@ const showSuccessMessage = () => {
 const showErrorMessage = (message) => {
   const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
   const errorMessage = errorMessageTemplate.cloneNode(true);
-  // formMessage.textContent = message; "errorMessage is not defined"  // не работает! Почему???
   errorMessage.querySelector('.error__message').textContent = message;
   main.append(errorMessage);
   closeErrorMessage(errorMessage);
