@@ -140,7 +140,7 @@ formPriceInput.addEventListener('input', (evt) => {
     formPriceInput.setCustomValidity('Ошибка! Цена должна быть больше нуля!!!');
   } else
 
-  if ((formTypeHouse.value == 'bungalow') && (valuePrice == MinPrice.BUNGALOW)) {
+  if ((formTypeHouse.value === 'bungalow') && (valuePrice === MinPrice.BUNGALOW)) {
     formPriceInput.setCustomValidity('Вы действительно хотите указать цену = 0?!');
   } else
 
@@ -148,15 +148,15 @@ formPriceInput.addEventListener('input', (evt) => {
     formPriceInput.setCustomValidity('Цена не должна превышать 1 000 000 !!!');
   } else
 
-  if ((formTypeHouse.value == 'flat') && (valuePrice < MinPrice.FLAT)) {
+  if ((formTypeHouse.value === 'flat') && (valuePrice < MinPrice.FLAT)) {
     formPriceInput.setCustomValidity('Цена должна быть больше 1 000 !!!');
   } else
 
-  if ((formTypeHouse.value == 'house') && (valuePrice < MinPrice.HOUSE)) {
+  if ((formTypeHouse.value === 'house') && (valuePrice < MinPrice.HOUSE)) {
     formPriceInput.setCustomValidity('Цена должна быть больше 5 000 !!!');
   } else
 
-  if ((formTypeHouse.value == 'palace') && (valuePrice < MinPrice.PALACE)) {
+  if ((formTypeHouse.value === 'palace') && (valuePrice < MinPrice.PALACE)) {
     formPriceInput.setCustomValidity('Цена должна быть больше 10 000 !!!');
   } else {
     formPriceInput.setCustomValidity('');
@@ -175,20 +175,20 @@ formPriceInput.addEventListener('input', (evt) => {
 formRooms.addEventListener('change', () => {
   const valueRooms = formRooms.value;
 
-  if (valueRooms == ROOM_FIRST_OPTION) {
+  if (valueRooms === ROOM_FIRST_OPTION) {
     formGuests.children[0].removeAttribute('disabled');
     formGuests.children[1].setAttribute('disabled', 'disabled');
     formGuests.children[2].setAttribute('disabled', 'disabled');
     formGuests.children[3].setAttribute('disabled', 'disabled');
-  } else if (valueRooms == ROOM_SECOND_OPTION) {
+  } else if (valueRooms === ROOM_SECOND_OPTION) {
     formGuests.children[1].removeAttribute('disabled');
     formGuests.children[2].setAttribute('disabled', 'disabled');
     formGuests.children[3].setAttribute('disabled', 'disabled');
-  } else if (valueRooms == ROOM_THIRD_OPTION) {
+  } else if (valueRooms === ROOM_THIRD_OPTION) {
     formGuests.children[1].removeAttribute('disabled');
     formGuests.children[2].removeAttribute('disabled');
     formGuests.children[3].setAttribute('disabled', 'disabled');
-  } else if (valueRooms == ROOM_EXTRA_OPTION) {
+  } else if (valueRooms === ROOM_EXTRA_OPTION) {
     formGuests.children[3].removeAttribute('disabled');
     formGuests.children[3].setAttribute('selected', 'selected');
     formGuests.children[0].setAttribute('disabled', 'disabled');
