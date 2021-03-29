@@ -18,15 +18,5 @@ getData(
       }, RERENDER_DELAY));
 
     setFormSubmit(ads.slice(0, OFFERS_LIMIT));
-    // setFormSubmit();  // выдает два сообщения: успешно отправлено + ошибка отправки №2
 
   }, (message) => showAlert(message));
-
-
-
-
-
-
-
-
-

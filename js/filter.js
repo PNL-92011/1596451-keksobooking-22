@@ -1,6 +1,5 @@
 import {mapFilters} from './form.js';
 
-
 const ANY = 'any';  // Любой тип жилья
 const filterType = mapFilters.querySelector('#housing-type');
 const filterPrice = mapFilters.querySelector('#housing-price');

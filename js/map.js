@@ -17,6 +17,12 @@ const mainPin = {
   iconAnchor: [26, 52],
 }
 
+const ordinaryPin = {
+  iconUrl: './img/pin.svg',
+  iconSize: [32, 32],
+  iconAnchor: [18, 32],
+}
+
 const layerOfPins = L.layerGroup();
 
 const removeOrdinaryMarkers = () => {
@@ -80,11 +86,7 @@ mainMarker.on('move', (evt) => {
 const createPins = (pins) => {
   layerOfPins.clearLayers();
   pins.forEach(({author, offer, location}) => {
-    const ordinaryPinMarker = L.icon({     // Иконка для обычного маркера
-      iconUrl: './img/pin.svg',
-      iconSize: [32, 32],
-      iconAnchor: [18, 32],
-    });
+    const ordinaryPinMarker = L.icon(ordinaryPin);
 
     const ordinaryMarker = L.marker(
       {

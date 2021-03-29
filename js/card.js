@@ -3,7 +3,7 @@ const PhotoSize = {
   HEIGHT: 40,
 };
 
-const CardType = {
+const сardType = {
   bungalow: 'Бунгало',
   flat: 'Квартира',
   house: 'Дом',
@@ -79,12 +79,11 @@ const renderCard = ({author, offer}) => {
   insertValue(offer.title, '.popup__title');
   insertValue(offer.address, '.popup__text--address');
   insertValue(`${offer.price} ₽/ночь`, '.popup__text--price');
-  insertValue(CardType[offer.type], '.popup__type');
+  insertValue(сardType[offer.type], '.popup__type');
   insertValue(`${offer.rooms} комнат(ы) для ${offer.guests} гостей`, '.popup__text--capacity');
   insertValue(`Заезд после ${offer.checkin}, выезд до ${offer.checkout}`, '.popup__text--time');
   insertValue(offer.description, '.popup__description');
   insertValue(author.avatar, '.popup__avatar');
-
 
   return adElement;
 };
