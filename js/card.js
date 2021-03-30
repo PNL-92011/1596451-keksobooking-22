@@ -1,4 +1,4 @@
-const PhotoSizes = {
+const PhotoSize = {
   WIDTH: 45,
   HEIGHT: 40,
 };
@@ -44,8 +44,8 @@ const renderCard = ({author, offer}) => {
         const photoItem = document.createElement('img');
         photoItem.src = photo;
         photoItem.alt = 'Фотография жилья';
-        photoItem.style.width = `${PhotoSizes.WIDTH}px`;
-        photoItem.style.height = `${PhotoSizes.HEIGHT}px`;
+        photoItem.style.width = `${PhotoSize.WIDTH}px`;
+        photoItem.style.height = `${PhotoSize.HEIGHT}px`;
         photoItem.classList.add('popup__photo');
         card.querySelector('.popup__photos').append(photoItem);
       });
@@ -86,8 +86,7 @@ const renderCard = ({author, offer}) => {
     card.querySelector('.popup__text--capacity').remove();
   }
 
-  //  TIME  //
-  if ((offer.checkin && offer.checkout) && ((offer.checkin === null) && (offer.checkout === null))) {
+  if ((offer.checkin && offer.checkout) && ((offer.checkin !== '0:00') && (offer.checkout !== '0:00'))) {
     card.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   } else {
     card.querySelector('.popup__text--time').remove();
