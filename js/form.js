@@ -1,6 +1,7 @@
 import {renderPins, updateMap} from './map.js';
 import {showSuccessMessage, showErrorMessage} from './modal.js';
 import {sendData} from './fetch.js';
+import {clearPhotoAndAvatar} from './photo-avatar.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -223,6 +224,7 @@ const setFormSubmit = (pins) => {
     mapFilters.reset();
     updateMap();
     renderPins(pins);
+    clearPhotoAndAvatar();
   });
 
   adForm.addEventListener('submit', (evt) => {
@@ -235,6 +237,7 @@ const setFormSubmit = (pins) => {
         mapFilters.reset();
         updateMap();
         renderPins(pins);
+        clearPhotoAndAvatar();
 
       },
       showErrorMessage,

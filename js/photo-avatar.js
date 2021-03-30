@@ -1,9 +1,15 @@
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
+const ImageSize = {
+  WIDTH: 40,
+  HEIGHT: 44,
+};
+
 const avatarChooser = document.querySelector('.ad-form__field input[type=file]');
-const previewAvatar = document.querySelector('.ad-form-header__preview');
+const previewAvatar = document.querySelector('.ad-form-header__preview img');
 const photoChooser = document.querySelector('.ad-form__upload input[type=file]');
 const previewPhoto = document.querySelector('.ad-form__photo');
+const photoBlock = document.querySelector('.ad-form__photo');
 
 
 // Добавление превью аватара
@@ -21,6 +27,7 @@ const chooseAvatar = () => {
     if (matches) {
       const reader = new FileReader();
 
+
       // результат чтения файла = изображение —->
       // кладем его в атрибут src DOM-узла с превью картинки
       reader.addEventListener('load', () => {
@@ -35,8 +42,9 @@ const chooseAvatar = () => {
 }
 
 
-
-// Добавление превью фото жилья
+/**
+ * Добавление превью фото жилья
+ */
 const choosePhoto = () => {
   photoChooser.addEventListener('change', (evt) => {
     const file = evt.target.files[0];
@@ -48,9 +56,15 @@ const choosePhoto = () => {
 
     if (matches) {
       const reader = new FileReader();
+      const newImage = document.createElement('img');
+      newImage.classList.add = 'photo-preview';
+      newImage.width = '70';
+      newImage.height = '70';
+      newImage.alt = 'Фотография жилья';
 
       reader.addEventListener('load', () => {
-        previewPhoto.src = reader.result;
+        newImage.src = reader.result;
+        previewPhoto.appendChild(newImage);
       });
 
       reader.readAsDataURL(file);
@@ -59,4 +73,22 @@ const choosePhoto = () => {
 }
 
 
-export {chooseAvatar, choosePhoto}
+/**
+ * Функция очистки аватара и/или фотографий жилья
+ */
+
+const clearPhotoAndAvatar = () => {
+  previewAvatar.src = 'img/muffin-grey.svg';
+  previewAvatar.width = ImageSize.WIDTH;
+  previewAvatar.height = ImageSize.HEIGHT;
+  const photosForClearing = Array.from(photoBlock.children);
+  photosForClearing.forEach((photo) => {
+    photo.remove();
+  });
+}
+
+export {
+  chooseAvatar,
+  choosePhoto,
+  clearPhotoAndAvatar
+}

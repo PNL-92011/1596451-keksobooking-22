@@ -4,6 +4,8 @@ import {setFormSubmit} from './form.js';
 import {getData} from './fetch.js';
 import {showAlert} from './util.js';
 import {chooseFilter} from './filter.js';
+import {chooseAvatar, choosePhoto} from './photo-avatar.js';
+
 
 const OFFERS_LIMIT = 10;
 const RERENDER_DELAY = 500;
@@ -20,3 +22,6 @@ getData(
     setFormSubmit(ads.slice(0, OFFERS_LIMIT));
 
   }, (message) => showAlert(message));
+
+chooseAvatar();
+choosePhoto();
