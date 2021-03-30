@@ -4,10 +4,10 @@ import {sendData} from './fetch.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
-const ROOM_FIRST_OPTION = 1;
-const ROOM_SECOND_OPTION = 2;
-const ROOM_THIRD_OPTION = 3;
-const ROOM_EXTRA_OPTION = 100;
+const ROOM_FIRST_OPTION = '1';
+const ROOM_SECOND_OPTION = '2';
+const ROOM_THIRD_OPTION = '3';
+const ROOM_EXTRA_OPTION = '100';
 
 const MAX_PRICE = 1000000;
 
@@ -181,10 +181,12 @@ formRooms.addEventListener('change', () => {
     formGuests.children[2].setAttribute('disabled', 'disabled');
     formGuests.children[3].setAttribute('disabled', 'disabled');
   } else if (valueRooms === ROOM_SECOND_OPTION) {
+    formGuests.children[0].removeAttribute('disabled');
     formGuests.children[1].removeAttribute('disabled');
     formGuests.children[2].setAttribute('disabled', 'disabled');
     formGuests.children[3].setAttribute('disabled', 'disabled');
   } else if (valueRooms === ROOM_THIRD_OPTION) {
+    formGuests.children[0].removeAttribute('disabled');
     formGuests.children[1].removeAttribute('disabled');
     formGuests.children[2].removeAttribute('disabled');
     formGuests.children[3].setAttribute('disabled', 'disabled');
