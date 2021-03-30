@@ -172,30 +172,41 @@ formPriceInput.addEventListener('input', (evt) => {
  * 1 комната - для 1 гостя; 2 комнаты - для 1 или 2 гостей; 3 комнаты - для 1 или 2 или 3 гостей
  * 100 комнат - не для гостей
  */
-formRooms.addEventListener('change', () => {
-  const valueRooms = formRooms.value;
-
-  if (valueRooms === ROOM_FIRST_OPTION) {
-    formGuests.children[0].removeAttribute('disabled');
-    formGuests.children[1].setAttribute('disabled', 'disabled');
-    formGuests.children[2].setAttribute('disabled', 'disabled');
-    formGuests.children[3].setAttribute('disabled', 'disabled');
-  } else if (valueRooms === ROOM_SECOND_OPTION) {
-    formGuests.children[0].removeAttribute('disabled');
-    formGuests.children[1].removeAttribute('disabled');
-    formGuests.children[2].setAttribute('disabled', 'disabled');
-    formGuests.children[3].setAttribute('disabled', 'disabled');
-  } else if (valueRooms === ROOM_THIRD_OPTION) {
-    formGuests.children[0].removeAttribute('disabled');
-    formGuests.children[1].removeAttribute('disabled');
-    formGuests.children[2].removeAttribute('disabled');
-    formGuests.children[3].setAttribute('disabled', 'disabled');
-  } else if (valueRooms === ROOM_EXTRA_OPTION) {
-    formGuests.children[3].removeAttribute('disabled');
-    formGuests.children[3].setAttribute('selected', 'selected');
-    formGuests.children[0].setAttribute('disabled', 'disabled');
-    formGuests.children[1].setAttribute('disabled', 'disabled');
-    formGuests.children[2].setAttribute('disabled', 'disabled');
+formRooms.addEventListener('change', (evt) => {
+  switch (evt.target.value) {
+    case ROOM_FIRST_OPTION:
+      formGuests.options[0].disabled = false;
+      formGuests.options[1].disabled = true;
+      formGuests.options[2].disabled = true;
+      formGuests.options[3].disabled = true;
+      formGuests.options[0].selected = true;
+      break;
+    case ROOM_SECOND_OPTION:
+      formGuests.options[0].disabled = false;
+      formGuests.options[1].disabled = false;
+      formGuests.options[2].disabled = true;
+      formGuests.options[3].disabled = true;
+      formGuests.options[1].selected = true;
+      break;
+    case ROOM_THIRD_OPTION:
+      formGuests.options[0].disabled = false;
+      formGuests.options[1].disabled = false;
+      formGuests.options[2].disabled = false;
+      formGuests.options[3].disabled = true;
+      formGuests.options[2].selected = true;
+      break;
+    case ROOM_EXTRA_OPTION:
+      formGuests.options[0].disabled = true;
+      formGuests.options[1].disabled = true;
+      formGuests.options[2].disabled = true;
+      formGuests.options[3].disabled = false;
+      formGuests.options[3].selected = true;
+      break;
+    default:
+      formGuests.options[0].disabled = false;
+      formGuests.options[1].disabled = false;
+      formGuests.options[2].disabled = false;
+      formGuests.options[3].disabled = false;
   }
 });
 

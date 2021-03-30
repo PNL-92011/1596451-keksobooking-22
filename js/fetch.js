@@ -40,11 +40,11 @@ const sendData = (onSuccess, onError, body) => {
       if (response.ok) {
         onSuccess();
       } else {
-        onError('Ошибка при отправке данных1');
+        onError('Ошибка при отправке данных');
       }
     })
     .catch(() => {
-      onError('Ошибка при отправке данных2');
+      onError('Ошибка при отправке данных');
     });
 }
 
